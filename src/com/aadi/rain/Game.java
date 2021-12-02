@@ -1,7 +1,6 @@
 package com.aadi.rain;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -26,7 +25,7 @@ public class Game extends Canvas implements Runnable {
 	private Screen screen;
 
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-	
+
 	// Array to store the colors of every pixel of the image which are stored in Hexadecimal format
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
@@ -79,6 +78,7 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 
+		screen.clear();
 		screen.render();
 
 		for (int i = 0; i < pixels.length; i++) {
