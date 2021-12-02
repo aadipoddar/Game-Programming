@@ -3,7 +3,9 @@ package com.aadi.rain;
 import javax.swing.JFrame;
 import java.awt.Canvas;
 import java.awt.Dimension;
-import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -31,6 +33,7 @@ public class Game extends Canvas implements Runnable {
 	
 	public synchronized void stop() {
 		running = false;
+		
 		try {
 			thread.join();
 		}catch(InterruptedException e) {
@@ -50,11 +53,17 @@ public class Game extends Canvas implements Runnable {
 
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
-
+		
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
 		}
+		
+		Graphics g = bs.getDrawGraphics();
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		g.dispose();
+		bs.show();
 	}
 
 	public static void main(String[] args) {
