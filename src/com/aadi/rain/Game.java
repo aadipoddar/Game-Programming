@@ -10,6 +10,8 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import com.aadi.rain.graphics.Screen;
+
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
@@ -21,6 +23,8 @@ public class Game extends Canvas implements Runnable {
 	private JFrame frame;
 	private boolean running = false;
 
+	private Screen screen;
+
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	
 	// Array to store the colors of every pixel of the image which are stored in Hexadecimal format
@@ -29,6 +33,8 @@ public class Game extends Canvas implements Runnable {
 	public Game() {
 		Dimension size = new Dimension(width * scale, height * scale); // Size of the window
 		setPreferredSize(size);
+
+		screen = new Screen(width, height);
 
 		frame = new JFrame(); // Initializes a new Window
 	}
@@ -66,8 +72,8 @@ public class Game extends Canvas implements Runnable {
 		BufferStrategy bs = getBufferStrategy();
 
 		if (bs == null) {
-			// We use the value 3 as it is highly opimal Value because
-			// first values is that value which is currently beign presented on the screen
+			// We use the value 3 as it is highly optimal Value because
+			// first values is that value which is currently begin presented on the screen
 			// Second and Third Value are the 2 buffers that are already created to be presented on the screen in the next frame
 			createBufferStrategy(3);
 			return;
