@@ -6,7 +6,8 @@ public class Screen {
 	private int width, height;
 	public int[] pixels;
 
-	int time = 0, counter = 0;
+	int xtime = 0, ytime = 50;
+	int counter = 0;
 
 	public Screen(int width, int height) {
 		this.width = width;
@@ -23,13 +24,18 @@ public class Screen {
 	public void render() {
 		counter++;
 
-		if (counter % 100 == 0) {
-			time++;
-		}
+		if (counter % 10 == 0) xtime++;
+		if (counter % 80 == 0) ytime++;
 
 		for (int y = 0; y < height; y++) {
+			// Deals With Out of Bounds Exception when the pixel goes beyond the size of the frame in the y axis
+			if (ytime >= height) break;
+			
 			for (int x = 0; x < width; x++) {
-				pixels[time + time * width] = 0xff00ff; // Index of the array shows the Coordinate System of the Screen
+				// Deals With Out of Bounds Exception when the pixel goes beyond the size of the frame in the x axis
+				if (xtime >= width) break;
+				
+				pixels[xtime + ytime * width] = 0xff00ff; // Index of the array shows the Coordinate System of the Screen
 			}
 		}
 	}
