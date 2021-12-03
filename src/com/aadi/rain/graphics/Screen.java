@@ -6,7 +6,7 @@ public class Screen {
 	private int width, height;
 	public int[] pixels;
 
-	int xtime = 0, ytime = 50;
+	int xtime = 100, ytime = 50;
 	int counter = 0;
 
 	public Screen(int width, int height) {
@@ -24,17 +24,17 @@ public class Screen {
 	public void render() {
 		counter++;
 
-		if (counter % 10 == 0) xtime++;
-		if (counter % 80 == 0) ytime++;
+		if (counter % 100 == 0) xtime--;
+		if (counter % 100 == 0) ytime--;
 
 		for (int y = 0; y < height; y++) {
 			// Deals With Out of Bounds Exception when the pixel goes beyond the size of the frame in the y axis
-			if (ytime >= height) break;
-			
+			if (ytime < 0 || ytime >= height) break;
+
 			for (int x = 0; x < width; x++) {
 				// Deals With Out of Bounds Exception when the pixel goes beyond the size of the frame in the x axis
-				if (xtime >= width) break;
-				
+				if (xtime < 0 || xtime >= width) break;
+
 				pixels[xtime + ytime * width] = 0xff00ff; // Index of the array shows the Coordinate System of the Screen
 			}
 		}
