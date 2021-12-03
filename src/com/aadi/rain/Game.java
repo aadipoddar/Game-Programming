@@ -55,10 +55,25 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void run() { // Automatically called on Thread Start
+
+		long lastTime = System.nanoTime(); // Computer's Current Time
+		final double ns = 1000000000.0 / 60.0;
+		double delta = 0;
+
 		while (running) {
-			update();
+
+			long now = System.nanoTime(); // Current loops time 
+			delta += (now - lastTime) / ns; // Calculates the Time taken to Run the while loop
+			lastTime = now;
+
+			while (delta >= 1) {
+				update();
+				delta--;
+			}
+
 			render();
 		}
+		stop();
 	}
 
 	public void update() {
