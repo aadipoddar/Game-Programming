@@ -6,10 +6,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 // This class is in charge of any sprite sheet that we have and caching them in the memory
+// This loads our sheet but does not load the individual sprite
 public class SpriteSheet {
 
 	private String path;
-	private final int SIZE;
+	public final int SIZE;
 	public int[] pixels;
 
 	public SpriteSheet(String path, int size) {
