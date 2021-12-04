@@ -7,8 +7,10 @@ public class Screen {
 
 	private int width, height;
 	public int[] pixels;
+	public final int MAP_SIZE = 64;
+	public final int MAP_SIZE_MASK = MAP_SIZE - 1;
 
-	public int[] tiles = new int[64 * 64];
+	public int[] tiles = new int[MAP_SIZE * MAP_SIZE];
 
 	private Random random = new Random();
 
@@ -17,8 +19,9 @@ public class Screen {
 		this.height = height;
 		pixels = new int[width * height];
 
-		for (int i = 0; i < 64 * 64; i++) {
+		for (int i = 0; i < MAP_SIZE * MAP_SIZE; i++) {
 			tiles[i] = random.nextInt(0xffffff);
+			tiles[0] = 0;
 		}
 	}
 
@@ -28,17 +31,23 @@ public class Screen {
 		}
 	}
 
-	public void render() {
+	public void render(int xOffset, int yOffset) {
 
 		for (int y = 0; y < height; y++) {
+
+			int yy = y + yOffset;
+
 			// Deals With Out of Bounds Exception when the pixel goes beyond the size of the frame in the y axis
-			if (y < 0 || y >= height) break;
+			//if (yy < 0 || yy >= height) break;
 
 			for (int x = 0; x < width; x++) {
-				// Deals With Out of Bounds Exception when the pixel goes beyond the size of the frame in the x axis
-				if (x < 0 || x >= width) break;
 
-				int tileIndex = (x >> 4) + (y >> 4) * 64; // same as this { int tileIndex = (x / 16) + (y / 16) * 64; } using bitwise operator				
+				int xx = x + xOffset;
+
+				// Deals With Out of Bounds Exception when the pixel goes beyond the size of the frame in the x axis
+				//if (xx < 0 || xx >= width) break;
+
+				int tileIndex = ((xx >> 4) & MAP_SIZE_MASK) + ((yy >> 4) & MAP_SIZE_MASK) * MAP_SIZE; // same as this { int tileIndex = (x / 16) + (y / 16) * 64; } using bitwise operator				
 
 				pixels[x + y * width] = tiles[tileIndex]; // Index of the array shows the Coordinate System of the Screen
 			}
