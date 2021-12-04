@@ -8,6 +8,9 @@ public class Sprite {
 	public int[] pixels;
 	private SpriteSheet sheet;
 
+	// This is where we input the coordinates of the sprite we want to extract , We input the x and y Variables
+	public static Sprite grass = new Sprite(16, 0, 1, null);
+
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		SIZE = size;
 		pixels = new int[SIZE * SIZE];
