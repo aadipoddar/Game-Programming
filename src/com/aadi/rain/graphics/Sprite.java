@@ -23,7 +23,7 @@ public class Sprite {
 	// This is extracting a single sprite out of our sprite sheet 
 	private void load() {
 		for (int y = 0; y < SIZE; y++) {
-			for (x = 0; x < SIZE; x++) {
+			for (int x = 0; x < SIZE; x++) {
 				pixels[x + y * SIZE] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.SIZE];
 			}
 		}
