@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.input.Keyboard;
+import com.aadi.rain.level.Level;
+import com.aadi.rain.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -23,24 +25,23 @@ public class Game extends Canvas implements Runnable {
 	private Thread thread;
 	private JFrame frame;
 	private Keyboard key;
+	private Level level;
 	private boolean running = false;
 
 	private Screen screen;
 
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
-	// Array to store the colors of every pixel of the image which are stored in Hexadecimal format
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
 	public Game() {
-		Dimension size = new Dimension(width * scale, height * scale); // Size of the window
+		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
 
 		screen = new Screen(width, height);
-
-		frame = new JFrame(); // Initializes a new Window
-
+		frame = new JFrame();
 		key = new Keyboard();
+		level = new RandomLevel(64, 64);
+
 		addKeyListener(key);
 	}
 
@@ -68,7 +69,7 @@ public class Game extends Canvas implements Runnable {
 		double delta = 0;
 		int frames = 0;
 		int updates = 0;
-		
+
 		requestFocus();
 
 		while (running) {
@@ -105,30 +106,21 @@ public class Game extends Canvas implements Runnable {
 		key.update();
 
 		if (key.up) y--;
-
 		if (key.down) y++;
-
 		if (key.left) x--;
-
 		if (key.right) x++;
 	}
 
 	public void render() {
-		// It is used to create a buffer strategy for the canvas which is used to render the image on the screen
-		// BufferStrategy creates a temporary storage in the RAM which stores all the information of the colors to be presented on the screen
-		// It stores the hexadecimal values of the colors to be presented on the screen in the next frame
 		BufferStrategy bs = getBufferStrategy();
 
 		if (bs == null) {
-			// We use the value 3 as it is highly optimal Value because
-			// first values is that value which is currently begin presented on the screen
-			// Second and Third Value are the 2 buffers that are already created to be presented on the screen in the next frame
 			createBufferStrategy(3);
 			return;
 		}
 
 		screen.clear();
-		screen.render(x, y);
+		level.render(x, y, screen);
 
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
