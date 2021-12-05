@@ -1,5 +1,7 @@
 package com.aadi.rain.entity.mob;
 
+import com.aadi.rain.graphics.Screen;
+import com.aadi.rain.graphics.Sprite;
 import com.aadi.rain.input.Keyboard;
 
 public class Player extends Mob {
@@ -27,7 +29,8 @@ public class Player extends Mob {
 		if (xa != 0 || ya != 0) move(xa, ya);
 	}
 
-	public void render() {
+	public void render(Screen screen) {
+		screen.renderPlayer(x, y, Sprite.player0);
 	}
 
 }
