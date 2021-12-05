@@ -4,8 +4,8 @@ import com.aadi.rain.graphics.Screen;
 
 public class Level {
 
-	private int width, height;
-	private int[] tiles; // Which tile goes where
+	protected int width, height;
+	protected int[] tiles; // Which tile goes where
 
 	public Level(int width, int height) {
 		this.width = width;
@@ -18,7 +18,7 @@ public class Level {
 		loadLevel(path);
 	}
 
-	private void generateLevel() {
+	protected void generateLevel() {
 	}
 
 	private void loadLevel(String path) {
