@@ -49,7 +49,7 @@ public class Screen {
 
 				int tileIndex = ((xx >> 4) & MAP_SIZE_MASK) + ((yy >> 4) & MAP_SIZE_MASK) * MAP_SIZE; // same as this { int tileIndex = (x / 16) + (y / 16) * 64; } using bitwise operator				
 
-				pixels[x + y * width] = tiles[tileIndex]; // Index of the array shows the Coordinate System of the Screen
+				pixels[x + y * width] = Sprite.grass.pixels[(x & 15) + (y & 15) * Sprite.grass.SIZE]; // Index of the array shows the Coordinate System of the Screen
 			}
 		}
 	}

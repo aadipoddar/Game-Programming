@@ -3,13 +3,13 @@ package com.aadi.rain.graphics;
 // This class loads our individual sprite
 public class Sprite {
 
-	private final int SIZE;
+	public final int SIZE;
 	private int x, y;
 	public int[] pixels;
 	private SpriteSheet sheet;
 
 	// This is where we input the coordinates of the sprite we want to extract , We input the x and y Variables
-	public static Sprite grass = new Sprite(16, 0, 1, null);
+	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		SIZE = size;
