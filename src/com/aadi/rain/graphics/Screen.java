@@ -7,7 +7,7 @@ import com.aadi.rain.level.tile.Tile;
 // This class Fills pixels in with the colors that we specify
 public class Screen {
 
-	private int width, height;
+	public int width, height;
 	public int[] pixels;
 	public final int MAP_SIZE = 64;
 	public final int MAP_SIZE_MASK = MAP_SIZE - 1;

@@ -31,6 +31,12 @@ public class Level {
 	}
 
 	public void render(int xScroll, int yScroll, Screen screen) {
+		// It is  / 16 because we are dealing with pixel precision and not tile precision
+		// These 4 variables are the Corner Pins
+		int x0 = xScroll >> 4;
+		int x1 = (xScroll + screen.width) >> 4;
+		int y0 = yScroll >> 4;
+		int y1 = (yScroll + screen.height) >> 4;
 	}
 
 }
