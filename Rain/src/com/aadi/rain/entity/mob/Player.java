@@ -3,6 +3,7 @@ package com.aadi.rain.entity.mob;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.graphics.Sprite;
 import com.aadi.rain.input.Keyboard;
+import com.aadi.rain.input.Mouse;
 
 public class Player extends Mob {
 
@@ -40,6 +41,18 @@ public class Player extends Mob {
 			walking = true;
 		} else {
 			walking = false;
+		}
+
+		updateShooting();
+	}
+
+	private void updateShooting() {
+		if (Mouse.getButton() == 1) {
+			double dx = Mouse.getX() - 300 / 2;
+			double dy = Mouse.getY() - 168 / 2;
+			double dir = Math.atan2(dy, dx);
+
+			shoot(x, y, dir);
 		}
 	}
 
