@@ -15,6 +15,7 @@ import com.aadi.rain.entity.mob.Player;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.input.Keyboard;
 import com.aadi.rain.level.Level;
+import com.aadi.rain.level.TileCoordinate;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -44,7 +45,8 @@ public class Game extends Canvas implements Runnable {
 		frame = new JFrame();
 		key = new Keyboard();
 		level = Level.spawn;
-		player = new Player(6 * 16, 4 * 16, key);
+		TileCoordinate playerSpawn = new TileCoordinate(19, 62);
+		player = new Player(playerSpawn.x(), playerSpawn.y(), key);
 
 		addKeyListener(key);
 	}
