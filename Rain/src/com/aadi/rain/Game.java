@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import com.aadi.rain.entity.mob.Player;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.input.Keyboard;
+import com.aadi.rain.input.Mouse;
 import com.aadi.rain.level.Level;
 import com.aadi.rain.level.TileCoordinate;
 
@@ -48,7 +49,12 @@ public class Game extends Canvas implements Runnable {
 		TileCoordinate playerSpawn = new TileCoordinate(19, 62);
 		player = new Player(playerSpawn.x(), playerSpawn.y(), key);
 		player.init(level);
+
 		addKeyListener(key);
+
+		Mouse mouse = new Mouse();
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 	}
 
 	public synchronized void start() { // Starts the thread which are series of events that are executed in the background
@@ -135,6 +141,7 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Verdana", 0, 50));
+		g.fillRect(Mouse.getX() - 32, Mouse.getY() - 32, 64, 64);
 		g.dispose();
 		bs.show();
 	}
