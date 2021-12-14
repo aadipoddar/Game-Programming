@@ -1,5 +1,6 @@
 package com.aadi.rain.entity.projectile;
 
+import com.aadi.rain.entity.particle.Particle;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.graphics.Sprite;
 
@@ -19,7 +20,11 @@ public class WizardProjectile extends Projectile {
 	}
 
 	public void update() {
-		if (level.tileCollision(x, y, nx, ny, 7)) remove();
+		if (level.tileCollision(x, y, nx, ny, 7)) {
+			Particle p = new Particle((int) x, (int) y, 50, 500);
+			level.add(p);
+			remove();
+		}
 		move();
 	}
 
