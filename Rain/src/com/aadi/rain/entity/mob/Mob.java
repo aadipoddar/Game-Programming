@@ -3,6 +3,7 @@ package com.aadi.rain.entity.mob;
 import com.aadi.rain.entity.Entity;
 import com.aadi.rain.entity.projectile.Projectile;
 import com.aadi.rain.entity.projectile.WizardProjectile;
+import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.graphics.Sprite;
 
 public abstract class Mob extends Entity {
@@ -30,8 +31,9 @@ public abstract class Mob extends Entity {
 		}
 	}
 
-	public void update() {
-	}
+	public abstract void update();
+
+	public abstract void render(Screen screen);
 
 	protected void shoot(int x, int y, double dir) {
 		//dir *= 180 / Math.PI;
@@ -49,9 +51,6 @@ public abstract class Mob extends Entity {
 		}
 
 		return solid;
-	}
-
-	public void render() {
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.level.Level;
 
-public abstract class Entity {
+public class Entity {
 
 	public int x, y;
 	private boolean removed = false;
