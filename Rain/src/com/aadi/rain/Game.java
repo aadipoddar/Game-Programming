@@ -8,13 +8,11 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.Random;
 
 import javax.swing.JFrame;
 
 import com.aadi.rain.entity.mob.Player;
 import com.aadi.rain.graphics.Screen;
-import com.aadi.rain.graphics.Sprite;
 import com.aadi.rain.input.Keyboard;
 import com.aadi.rain.input.Mouse;
 import com.aadi.rain.level.Level;
@@ -143,14 +141,6 @@ public class Game extends Canvas implements Runnable {
 
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
-
-		Sprite sprite = new Sprite(2, 2, 0xffffff);
-		Random random = new Random();
-		for (int i = 0; i < 100; i++) {
-			int x = random.nextInt(20);
-			int y = random.nextInt(20);
-			screen.renderSprite(width - 60 + x, 50 + y, sprite, true);
-		}
 
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
