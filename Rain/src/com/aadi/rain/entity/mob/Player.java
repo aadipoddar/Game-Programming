@@ -16,7 +16,13 @@ public class Player extends Mob {
 	private Sprite sprite;
 	private int anim = 0;
 	private boolean walking = false;
-	private AnimatedSprite test = new AnimatedSprite(SpriteSheet.player_down, 32, 32, 3);
+
+	private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 32, 32, 3);
+	private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up, 32, 32, 3);
+	private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 32, 32, 3);
+	private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 32, 32, 3);
+
+	private AnimatedSprite animSpite = down;
 
 	private int fireRate = 0;
 
@@ -34,7 +40,10 @@ public class Player extends Mob {
 	}
 
 	public void update() {
-		test.update();
+		if (walking) animSpite.update();
+		else
+			animSpite.setFrame(0);
+
 		if (fireRate > 0) fireRate--;
 
 		int xa = 0, ya = 0;
@@ -43,10 +52,20 @@ public class Player extends Mob {
 		else
 			anim = 0;
 
-		if (input.up) ya--;
-		if (input.down) ya++;
-		if (input.left) xa--;
-		if (input.right) xa++;
+		if (input.up) {
+			animSpite = up;
+			ya--;
+		} else if (input.down) {
+			animSpite = down;
+			ya++;
+		}
+		if (input.left) {
+			animSpite = left;
+			xa--;
+		} else if (input.right) {
+			animSpite = right;
+			xa++;
+		}
 
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
@@ -80,6 +99,7 @@ public class Player extends Mob {
 	public void render(Screen screen) {
 		int flip = 0;
 
+		/*
 		if (dir == 0) {
 			sprite = Sprite.player_forward;
 			if (walking) {
@@ -90,7 +110,7 @@ public class Player extends Mob {
 				}
 			}
 		}
-
+		
 		if (dir == 1) {
 			sprite = Sprite.player_side;
 			if (walking) {
@@ -101,7 +121,7 @@ public class Player extends Mob {
 				}
 			}
 		}
-
+		
 		if (dir == 2) {
 			sprite = Sprite.player_back;
 			if (walking) {
@@ -112,7 +132,7 @@ public class Player extends Mob {
 				}
 			}
 		}
-
+		
 		if (dir == 3) {
 			sprite = Sprite.player_side;
 			if (walking) {
@@ -124,8 +144,9 @@ public class Player extends Mob {
 			}
 			flip = 1;
 		}
+		*/
 
-		sprite = test.getSprite();
+		sprite = animSpite.getSprite();
 
 		screen.renderPlayer(x - 16, y - 16, sprite, flip);
 	}

@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 
 import com.aadi.rain.entity.mob.Player;
 import com.aadi.rain.graphics.Screen;
-import com.aadi.rain.graphics.SpriteSheet;
 import com.aadi.rain.input.Keyboard;
 import com.aadi.rain.input.Mouse;
 import com.aadi.rain.level.Level;
@@ -143,7 +142,7 @@ public class Game extends Canvas implements Runnable {
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
 
-		screen.renderSheet(40, 40, SpriteSheet.player_down, false);
+		//screen.renderSheet(40, 40, SpriteSheet.player_down, false);
 
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
