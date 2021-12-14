@@ -7,7 +7,7 @@ public class Sprite {
 	private int x, y;
 	private int width, height;
 	public int[] pixels;
-	private SpriteSheet sheet;
+	protected SpriteSheet sheet;
 
 	// This is where we input the coordinates of the sprite we want to extract , We input the x and y Variables
 	public static Sprite grass = new Sprite(16, 0, 5, SpriteSheet.tiles);
@@ -42,6 +42,14 @@ public class Sprite {
 
 	// Particles
 	public static Sprite particle_normal = new Sprite(3, 0xAAAAAA);
+	public static Sprite square = new Sprite(2, 0xFF0000);
+
+	protected Sprite(SpriteSheet sheet, int width, int height) {
+		SIZE = (width == height) ? width : -1;
+		this.width = width;
+		this.height = height;
+		this.sheet = sheet;
+	}
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		SIZE = size;
@@ -60,6 +68,13 @@ public class Sprite {
 		this.height = height;
 		pixels = new int[width * height];
 		setColour(colour);
+	}
+
+	public Sprite(int[] pixels, int width, int height) {
+		SIZE = (width == height) ? width : -1;
+		this.width = width;
+		this.height = height;
+		this.pixels = pixels;
 	}
 
 	public Sprite(int size, int colour) {

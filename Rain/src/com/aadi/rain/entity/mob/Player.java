@@ -3,8 +3,10 @@ package com.aadi.rain.entity.mob;
 import com.aadi.rain.Game;
 import com.aadi.rain.entity.projectile.Projectile;
 import com.aadi.rain.entity.projectile.WizardProjectile;
+import com.aadi.rain.graphics.AnimatedSprite;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.graphics.Sprite;
+import com.aadi.rain.graphics.SpriteSheet;
 import com.aadi.rain.input.Keyboard;
 import com.aadi.rain.input.Mouse;
 
@@ -14,6 +16,7 @@ public class Player extends Mob {
 	private Sprite sprite;
 	private int anim = 0;
 	private boolean walking = false;
+	private AnimatedSprite test = new AnimatedSprite(SpriteSheet.player_down, 32, 32, 3);
 
 	private int fireRate = 0;
 
@@ -31,6 +34,7 @@ public class Player extends Mob {
 	}
 
 	public void update() {
+		test.update();
 		if (fireRate > 0) fireRate--;
 
 		int xa = 0, ya = 0;
@@ -120,6 +124,8 @@ public class Player extends Mob {
 			}
 			flip = 1;
 		}
+
+		sprite = test.getSprite();
 
 		screen.renderPlayer(x - 16, y - 16, sprite, flip);
 	}
