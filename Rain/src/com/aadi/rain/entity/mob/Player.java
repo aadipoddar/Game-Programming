@@ -1,6 +1,7 @@
 package com.aadi.rain.entity.mob;
 
 import com.aadi.rain.Game;
+import com.aadi.rain.entity.projectile.Projectile;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.graphics.Sprite;
 import com.aadi.rain.input.Keyboard;
@@ -44,7 +45,15 @@ public class Player extends Mob {
 			walking = false;
 		}
 
+		clear();
 		updateShooting();
+	}
+
+	private void clear() {
+		for (int i = 0; i < projectiles.size(); i++) {
+			Projectile p = projectiles.get(i);
+			if (p.isRemoved()) projectiles.remove(i);
+		}
 	}
 
 	private void updateShooting() {
