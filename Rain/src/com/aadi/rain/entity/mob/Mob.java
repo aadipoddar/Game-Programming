@@ -1,7 +1,6 @@
 package com.aadi.rain.entity.mob;
 
 import com.aadi.rain.entity.Entity;
-import com.aadi.rain.entity.particle.Particle;
 import com.aadi.rain.entity.projectile.Projectile;
 import com.aadi.rain.entity.projectile.WizardProjectile;
 import com.aadi.rain.graphics.Sprite;
@@ -28,7 +27,7 @@ public abstract class Mob extends Entity {
 		if (!collision(xa, ya)) {
 			x += xa;
 			y += ya;
-		} 
+		}
 	}
 
 	public void update() {
@@ -37,7 +36,7 @@ public abstract class Mob extends Entity {
 	protected void shoot(int x, int y, double dir) {
 		//dir *= 180 / Math.PI;
 		Projectile p = new WizardProjectile(x, y, dir);
-		level.addProjectile(p);
+		level.add(p);
 	}
 
 	private boolean collision(int xa, int ya) {
