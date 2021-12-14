@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.aadi.rain.entity.Entity;
+import com.aadi.rain.entity.projectile.Projectile;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.level.tile.Tile;
 
@@ -14,6 +15,7 @@ public class Level {
 	protected int[] tiles;
 
 	private List<Entity> entities = new ArrayList<Entity>();
+	private List<Projectile> projectiles = new ArrayList<Projectile>();
 
 	public static Level spawn = new SpawnLevel("/levels/spawn.png");
 
@@ -39,6 +41,14 @@ public class Level {
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).update();
 		}
+
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles.get(i).update();
+		}
+	}
+
+	public List<Projectile> getProjectiles() {
+		return projectiles;
 	}
 
 	private void time() {
@@ -61,10 +71,18 @@ public class Level {
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).render(screen);
 		}
+
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles.get(i).render(screen);
+		}
 	}
 
 	public void add(Entity e) {
 		entities.add(e);
+	}
+
+	public void addProjectile(Projectile p) {
+		projectiles.add(p);
 	}
 
 	public Tile getTile(int x, int y) {
