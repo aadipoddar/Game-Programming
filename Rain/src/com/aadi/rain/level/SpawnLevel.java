@@ -26,7 +26,9 @@ public class SpawnLevel extends Level {
 			System.out.println("Exception! Could not load level file!");
 		}
 
-		add(new Dummy(20, 55));
+		for (int i = 0; i < 10; i++) {
+			add(new Dummy(20, 55));
+		}
 	}
 
 	protected void generateLevel() {
