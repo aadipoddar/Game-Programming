@@ -37,6 +37,8 @@ public class Sprite {
 	public static Sprite player_back_1 = new Sprite(32, 2, 6, SpriteSheet.tiles);
 	public static Sprite player_back_2 = new Sprite(32, 2, 7, SpriteSheet.tiles);
 
+	public static Sprite dummy = new Sprite(32, 0, 0, SpriteSheet.dummy);
+
 	// Projectile Sprites here:
 	public static Sprite projectile_wizrd = new Sprite(16, 0, 0, SpriteSheet.projectile_wizard);
 
@@ -101,9 +103,9 @@ public class Sprite {
 
 	// This is extracting a single sprite out of our sprite sheet 
 	private void load() {
-		for (int y = 0; y < SIZE; y++) {
-			for (int x = 0; x < SIZE; x++) {
-				pixels[x + y * SIZE] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.SIZE];
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.WIDTH];
 			}
 		}
 	}
