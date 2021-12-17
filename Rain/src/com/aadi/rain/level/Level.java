@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.aadi.rain.entity.Entity;
+import com.aadi.rain.entity.mob.Player;
 import com.aadi.rain.entity.particle.Particle;
 import com.aadi.rain.entity.projectile.Projectile;
 import com.aadi.rain.graphics.Screen;
@@ -19,6 +20,8 @@ public class Level {
 	private List<Entity> entities = new ArrayList<Entity>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Particle> particles = new ArrayList<Particle>();
+
+	private List<Player> players = new ArrayList<Player>();
 
 	public static Level spawn = new SpawnLevel("/levels/spawn.png");
 
@@ -60,6 +63,10 @@ public class Level {
 			particles.get(i).update();
 		}
 
+		for (int i = 0; i < players.size(); i++) {
+			players.get(i).update();
+		}
+
 		remove();
 	}
 
@@ -74,6 +81,10 @@ public class Level {
 
 		for (int i = 0; i < particles.size(); i++) {
 			if (particles.get(i).isRemoved()) particles.remove(i);
+		}
+
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).isRemoved()) players.remove(i);
 		}
 	}
 
@@ -121,17 +132,34 @@ public class Level {
 		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).render(screen);
 		}
+
+		for (int i = 0; i < players.size(); i++) {
+			players.get(i).render(screen);
+		}
 	}
 
 	public void add(Entity e) {
 		e.init(this);
-		if (e instanceof Particle) {
-			particles.add((Particle) e);
-		} else if (e instanceof Projectile) {
-			projectiles.add((Projectile) e);
-		} else {
+		if (e instanceof Particle) particles.add((Particle) e);
+
+		else if (e instanceof Projectile) projectiles.add((Projectile) e);
+
+		else if (e instanceof Player) players.add((Player) e);
+
+		else
 			entities.add(e);
-		}
+	}
+
+	public List<Player> getPlayer() {
+		return players;
+	}
+
+	public Player getPlayerAt(int index) {
+		return players.get(index);
+	}
+
+	public Player getClientPlayer() {
+		return players.get(0);
 	}
 
 	public Tile getTile(int x, int y) {
