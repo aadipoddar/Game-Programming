@@ -4,11 +4,9 @@ import com.aadi.rain.entity.Entity;
 import com.aadi.rain.entity.projectile.Projectile;
 import com.aadi.rain.entity.projectile.WizardProjectile;
 import com.aadi.rain.graphics.Screen;
-import com.aadi.rain.graphics.Sprite;
 
 public abstract class Mob extends Entity {
 
-	protected Sprite sprite;
 	protected boolean moving = false;
 	protected boolean walking = false;
 
