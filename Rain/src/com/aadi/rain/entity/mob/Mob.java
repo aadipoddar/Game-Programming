@@ -50,8 +50,7 @@ public abstract class Mob extends Entity {
 
 	public abstract void render(Screen screen);
 
-	protected void shoot(int x, int y, double dir) {
-		//dir *= 180 / Math.PI;
+	protected void shoot(double x, double y, double dir) {
 		Projectile p = new WizardProjectile(x, y, dir);
 		level.add(p);
 	}

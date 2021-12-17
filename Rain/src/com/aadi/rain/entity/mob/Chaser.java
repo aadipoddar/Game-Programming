@@ -74,7 +74,7 @@ public class Chaser extends Mob {
 	public void render(Screen screen) {
 		sprite = animSprite.getSprite();
 
-		screen.renderMob(x - 16, y - 16, this);
+		screen.renderMob((int) (x - 16), (int) (y - 16), this);
 	}
 
 }
