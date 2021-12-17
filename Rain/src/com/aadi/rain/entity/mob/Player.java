@@ -54,17 +54,18 @@ public class Player extends Mob {
 
 		if (input.up) {
 			animSpite = up;
-			ya--;
+			ya -= 2;
 		} else if (input.down) {
 			animSpite = down;
-			ya++;
+			ya += 2;
 		}
+
 		if (input.left) {
 			animSpite = left;
-			xa--;
+			xa -= 2;
 		} else if (input.right) {
 			animSpite = right;
-			xa++;
+			xa += 2;
 		}
 
 		if (xa != 0 || ya != 0) {
