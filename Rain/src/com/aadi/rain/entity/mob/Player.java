@@ -46,26 +46,24 @@ public class Player extends Mob {
 
 		if (fireRate > 0) fireRate--;
 
-		int xa = 0, ya = 0;
+		double xa = 0, ya = 0;
 
-		if (anim < 7500) anim++;
-		else
-			anim = 0;
+		double speed = 1.0;
 
 		if (input.up) {
 			animSpite = up;
-			ya -= 2;
+			ya -= speed;
 		} else if (input.down) {
 			animSpite = down;
-			ya += 2;
+			ya += speed;
 		}
 
 		if (input.left) {
 			animSpite = left;
-			xa -= 2;
+			xa -= speed;
 		} else if (input.right) {
 			animSpite = right;
-			xa += 2;
+			xa += speed;
 		}
 
 		if (xa != 0 || ya != 0) {

@@ -34,6 +34,12 @@ public class SpawnLevel extends Level {
 	}
 
 	protected void generateLevel() {
+		for (int y = 0; y < 64; y++) {
+			for (int x = 0; x < 64; x++) {
+				getTile(x, y);
+			}
+		}
+		tile_size = 16;
 	}
 
 }
