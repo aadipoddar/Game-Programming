@@ -102,19 +102,14 @@ public class SpriteSheet {
 
 	private void load() {
 		try {
-			System.out.print("Trying to load: " + path + "...");
 			BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));
-			System.out.println(" succeeded!");
 			width = image.getWidth();
 			height = image.getHeight();
 			pixels = new int[width * height];
 			image.getRGB(0, 0, width, height, pixels, 0, width);
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
-			System.err.println(" failed!");
 		}
-
 	}
 
 }
