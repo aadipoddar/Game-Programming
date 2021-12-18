@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 
 import com.aadi.rain.entity.mob.Chaser;
 import com.aadi.rain.entity.mob.Dummy;
+import com.aadi.rain.entity.mob.Star;
 
 public class SpawnLevel extends Level {
 
@@ -28,6 +29,7 @@ public class SpawnLevel extends Level {
 		}
 
 		add(new Chaser(20, 55));
+		add(new Star(17, 35));
 		for (int i = 0; i < 5; i++) {
 			add(new Dummy(20, 55));
 		}

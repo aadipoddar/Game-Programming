@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.aadi.rain.entity.mob.Chaser;
 import com.aadi.rain.entity.mob.Mob;
+import com.aadi.rain.entity.mob.Star;
 import com.aadi.rain.entity.projectile.Projectile;
 import com.aadi.rain.level.tile.Tile;
 
@@ -148,6 +149,7 @@ public class Screen {
 				int col = mob.getSprite().pixels[xs + ys * 32];
 
 				if ((mob instanceof Chaser) && col == 0xff472BBF) col = 0xffBA0015;
+				if ((mob instanceof Star) && col == 0xff472BBF) col = 0xffE8E83A;
 
 				if (col != 0xffff00ff) pixels[xa + ya * width] = col;
 			}
