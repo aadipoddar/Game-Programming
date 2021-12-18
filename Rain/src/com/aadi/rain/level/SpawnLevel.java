@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.aadi.rain.entity.mob.Dummy;
 import com.aadi.rain.entity.mob.Shooter;
 
 public class SpawnLevel extends Level {
@@ -29,7 +30,9 @@ public class SpawnLevel extends Level {
 		//add(new Chaser(20, 55));
 		//add(new Star(17, 35));
 
+		add(new Shooter(20, 48));
 		add(new Shooter(20, 55));
+		add(new Dummy(15, 53));
 
 		for (int i = 0; i < 5; i++) {
 			//add(new Dummy(20, 55));

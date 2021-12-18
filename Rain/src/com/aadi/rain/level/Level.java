@@ -252,6 +252,8 @@ public class Level {
 		for (int i = 0; i < entities.size(); i++) {
 			Entity entity = entities.get(i);
 
+			if (entity.equals(e)) continue;
+
 			int x = (int) entity.getX();
 			int y = (int) entity.getY();
 

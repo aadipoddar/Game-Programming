@@ -1,9 +1,13 @@
 package com.aadi.rain.entity.mob;
 
+import java.util.List;
+
+import com.aadi.rain.entity.Entity;
 import com.aadi.rain.graphics.AnimatedSprite;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.graphics.Sprite;
 import com.aadi.rain.graphics.SpriteSheet;
+import com.aadi.rain.util.Vector2i;
 
 public class Shooter extends Mob {
 
@@ -55,20 +59,36 @@ public class Shooter extends Mob {
 		}
 
 		if (xa != 0 || ya != 0) {
-			move(xa, ya);
+			//move(xa, ya);
 			walking = true;
 		} else {
 			walking = false;
 		}
 
-		Player p = level.getClientPlayer();
+		List<Entity> entities = level.getEntities(this, 500);
+		entities.add(level.getClientPlayer());
 
-		double dx = p.getX() - x;
-		double dy = p.getY() - y;
+		double min = 0;
+		Entity closest = null;
 
-		double dir = Math.atan2(dy, dx);
+		for (int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i);
+			double distance = Vector2i.getDistance(new Vector2i(x, y), new Vector2i(e.getX(), e.getY()));
 
-		shoot(x, y, dir);
+			if (i == 0 || distance < min) {
+				min = distance;
+				closest = e;
+			}
+		}
+
+		if (closest != null) {
+			double dx = closest.getX() - x;
+			double dy = closest.getY() - y;
+
+			double dir = Math.atan2(dy, dx);
+
+			shoot(x, y, dir);
+		}
 	}
 
 	public void render(Screen screen) {
