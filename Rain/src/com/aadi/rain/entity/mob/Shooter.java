@@ -21,6 +21,8 @@ public class Shooter extends Mob {
 	private int time = 0;
 	private int xa = 0, ya = 0;
 
+	private Entity rand = null;
+
 	public Shooter(int x, int y) {
 		this.x = x << 4;
 		this.y = y << 4;
@@ -65,6 +67,29 @@ public class Shooter extends Mob {
 			walking = false;
 		}
 
+		shootRandom();
+	}
+
+	private void shootRandom() {
+		List<Entity> entities = level.getEntities(this, 500);
+		entities.add(level.getClientPlayer());
+
+		if (time % (30 + random.nextInt(91)) == 0) {
+			int index = random.nextInt(entities.size() - 1);
+			rand = entities.get(index);
+		}
+
+		if (rand != null) {
+			double dx = rand.getX() - x;
+			double dy = rand.getY() - y;
+
+			double dir = Math.atan2(dy, dx);
+
+			shoot(x, y, dir);
+		}
+	}
+
+	private void shootClosest() {
 		List<Entity> entities = level.getEntities(this, 500);
 		entities.add(level.getClientPlayer());
 
