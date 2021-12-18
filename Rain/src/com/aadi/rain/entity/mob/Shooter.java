@@ -5,7 +5,7 @@ import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.graphics.Sprite;
 import com.aadi.rain.graphics.SpriteSheet;
 
-public class Dummy extends Mob {
+public class Shooter extends Mob {
 
 	private AnimatedSprite down = new AnimatedSprite(SpriteSheet.dummy_down, 32, 32, 3);
 	private AnimatedSprite up = new AnimatedSprite(SpriteSheet.dummy_up, 32, 32, 3);
@@ -15,13 +15,11 @@ public class Dummy extends Mob {
 	private AnimatedSprite animSprite = down;
 
 	private int time = 0;
-	private int xa = 0;
-	private int ya = 0;
+	private int xa = 0, ya = 0;
 
-	public Dummy(int x, int y) {
+	public Shooter(int x, int y) {
 		this.x = x << 4;
 		this.y = y << 4;
-
 		sprite = Sprite.dummy;
 	}
 
@@ -63,11 +61,19 @@ public class Dummy extends Mob {
 			walking = false;
 		}
 
+		Player p = level.getClientPlayer();
+
+		double dx = p.getX() - x;
+		double dy = p.getY() - y;
+
+		double dir = Math.atan2(dy, dx);
+
+		shoot(x, y, dir);
 	}
 
 	public void render(Screen screen) {
 		sprite = animSprite.getSprite();
-		screen.renderMob(x, y, sprite, 0);
+		screen.renderMob(x - 16, y - 16, this);
 	}
 
 }
