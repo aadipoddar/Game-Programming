@@ -22,12 +22,13 @@ public class Screen {
 	public Screen(int width, int height) {
 		this.width = width;
 		this.height = height;
-		pixels = new int[width * height];
+		pixels = new int[width * height]; // 0 - 50,399 = 50,400
 
 		for (int i = 0; i < MAP_SIZE * MAP_SIZE; i++) {
 			tiles[i] = random.nextInt(0xffffff);
 			tiles[0] = 0;
 		}
+
 	}
 
 	public void clear() {
@@ -41,13 +42,12 @@ public class Screen {
 			xp -= xOffset;
 			yp -= yOffset;
 		}
-
-		for (int y = 0; y < sheet.HEIGHT; y++) {
+		for (int y = 0; y < sheet.SPRITE_HEIGHT; y++) {
 			int ya = y + yp;
-			for (int x = 0; x < sheet.WIDTH; x++) {
+			for (int x = 0; x < sheet.SPRITE_WIDTH; x++) {
 				int xa = x + xp;
 				if (xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
-				pixels[xa + ya * width] = sheet.pixels[x + y * sheet.WIDTH];
+				pixels[xa + ya * width] = sheet.pixels[x + y * sheet.SPRITE_WIDTH];
 			}
 		}
 	}
@@ -71,13 +71,10 @@ public class Screen {
 	public void renderTile(int xp, int yp, Tile tile) {
 		xp -= xOffset;
 		yp -= yOffset;
-
 		for (int y = 0; y < tile.sprite.SIZE; y++) {
 			int ya = y + yp;
-
 			for (int x = 0; x < tile.sprite.SIZE; x++) {
 				int xa = x + xp;
-
 				if (xa < -tile.sprite.SIZE || xa >= width || ya < 0 || ya >= height) break;
 				if (xa < 0) xa = 0;
 				pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];

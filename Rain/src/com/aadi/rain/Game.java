@@ -1,9 +1,7 @@
 package com.aadi.rain;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -12,6 +10,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import com.aadi.rain.entity.mob.Player;
+import com.aadi.rain.graphics.Font;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.input.Keyboard;
 import com.aadi.rain.input.Mouse;
@@ -34,6 +33,7 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 
 	private Screen screen;
+	private Font font;
 
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
@@ -49,6 +49,7 @@ public class Game extends Canvas implements Runnable {
 		TileCoordinate playerSpawn = new TileCoordinate(19, 42);
 		player = new Player(playerSpawn.x(), playerSpawn.y(), key);
 		level.add(player);
+		font = new Font();
 
 		addKeyListener(key);
 
@@ -139,6 +140,7 @@ public class Game extends Canvas implements Runnable {
 		double yScroll = player.getY() - screen.height / 2;
 
 		level.render((int) xScroll, (int) yScroll, screen);
+		font.render(screen);
 
 		//screen.renderSheet(40, 40, SpriteSheet.player_down, false);
 
@@ -148,8 +150,6 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		g.setColor(Color.WHITE);
-		g.setFont(new Font("Verdana", 0, 50));
 		//g.fillRect(Mouse.getX() - 32, Mouse.getY() - 32, 64, 64);
 		//if (Mouse.getButton() != -1) g.drawString("Button: " + Mouse.getButton(), 80, 80);
 		g.dispose();
@@ -159,7 +159,6 @@ public class Game extends Canvas implements Runnable {
 	public static void main(String[] args) {
 		Game game = new Game();
 
-		// Specifications for the Window
 		game.frame.setResizable(false);
 		game.frame.setTitle(Game.title);
 		game.frame.add(game);

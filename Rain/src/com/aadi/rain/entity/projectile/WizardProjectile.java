@@ -13,7 +13,7 @@ public class WizardProjectile extends Projectile {
 		range = 200;
 		speed = 4;
 		damage = 20;
-		sprite = Sprite.projectile_wizrd;
+		sprite = Sprite.projectile_wizard;
 
 		nx = speed * Math.cos(angle);
 		ny = speed * Math.sin(angle);
