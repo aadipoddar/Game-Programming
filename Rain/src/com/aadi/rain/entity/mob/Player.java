@@ -1,6 +1,11 @@
 package com.aadi.rain.entity.mob;
 
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import com.aadi.rain.Game;
 import com.aadi.rain.entity.projectile.Projectile;
@@ -11,12 +16,14 @@ import com.aadi.rain.graphics.Sprite;
 import com.aadi.rain.graphics.SpriteSheet;
 import com.aadi.rain.graphics.ui.UIActionListener;
 import com.aadi.rain.graphics.ui.UIButton;
+import com.aadi.rain.graphics.ui.UIButtonListener;
 import com.aadi.rain.graphics.ui.UILabel;
 import com.aadi.rain.graphics.ui.UIManager;
 import com.aadi.rain.graphics.ui.UIPanel;
 import com.aadi.rain.graphics.ui.UIProgressBar;
 import com.aadi.rain.input.Keyboard;
 import com.aadi.rain.input.Mouse;
+import com.aadi.rain.util.ImageUtils;
 import com.aadi.rain.util.Vector2i;
 
 public class Player extends Mob {
@@ -38,6 +45,8 @@ public class Player extends Mob {
 	private UIManager ui;
 	private UIProgressBar uiHealthBar;
 	private UIButton button;
+
+	private BufferedImage image;
 
 	@Deprecated
 	public Player(String name, Keyboard input) {
@@ -82,6 +91,37 @@ public class Player extends Mob {
 		});
 		button.setText("Hello");
 		panel.addComponent(button);
+
+		try {
+			image = ImageIO.read(new File("res/textures/home.png"));
+			System.out.println(image.getType());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		UIButton imageButton = new UIButton(new Vector2i(10, 360), image, new UIActionListener() {
+			public void perform() {
+				System.exit(0);
+			}
+		});
+		imageButton.setButtonListener(new UIButtonListener() {
+			public void entered(UIButton button) {
+				button.setImage(ImageUtils.changeBrightness(image, -50));
+			}
+
+			public void exited(UIButton button) {
+				button.setImage(image);
+			}
+
+			public void pressed(UIButton button) {
+				button.setImage(ImageUtils.changeBrightness(image, 50));
+			}
+
+			public void released(UIButton button) {
+				button.setImage(image);
+			}
+		});
+		panel.addComponent(imageButton);
 	}
 
 	public String getName() {
@@ -128,6 +168,8 @@ public class Player extends Mob {
 	}
 
 	private void updateShooting() {
+		if (Mouse.getX() > 660) return;
+
 		if (Mouse.getButton() == 1 && fireRate <= 0) {
 			double dx = Mouse.getX() - Game.getWindowWidth() / 2;
 			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
