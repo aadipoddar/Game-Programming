@@ -1,5 +1,7 @@
 package com.aadi.rain.entity.mob;
 
+import java.awt.Font;
+
 import com.aadi.rain.Game;
 import com.aadi.rain.entity.projectile.Projectile;
 import com.aadi.rain.entity.projectile.WizardProjectile;
@@ -16,6 +18,7 @@ import com.aadi.rain.util.Vector2i;
 
 public class Player extends Mob {
 
+	private String name;
 	private Keyboard input;
 	private Sprite sprite;
 	private int anim = 0;
@@ -32,13 +35,15 @@ public class Player extends Mob {
 
 	private UIManager ui;
 
-	public Player(Keyboard input) {
+	public Player(String name, Keyboard input) {
+		this.name = name;
 		this.input = input;
 		sprite = Sprite.player_forward;
 
 	}
 
-	public Player(int x, int y, Keyboard input) {
+	public Player(String name, int x, int y, Keyboard input) {
+		this.name = name;
 		this.x = x;
 		this.y = y;
 		this.input = input;
@@ -46,9 +51,17 @@ public class Player extends Mob {
 		fireRate = WizardProjectile.FIRE_RATE;
 
 		ui = Game.getUIManager();
-		UIPanel panel = new UIPanel(new Vector2i((300 - 80) * 3, 0), new Vector2i(80 * 3, 168 * 3));
+		UIPanel panel = (UIPanel) new UIPanel(new Vector2i((300 - 80) * 3, 0), new Vector2i(80 * 3, 168 * 3)).setColor(0x4f4f4f);
 		ui.addPanel(panel);
-		panel.addComponent(new UILabel(new Vector2i(10, 50), "Hello").setColor(0));
+		UILabel nameLabel = new UILabel(new Vector2i(40, 200), name);
+		nameLabel.setColor(0xbbbbbb);
+		nameLabel.setFont(new Font("Verdana", Font.PLAIN, 24));
+		nameLabel.dropShadow = true;
+		panel.addComponent(nameLabel);
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public void update() {
