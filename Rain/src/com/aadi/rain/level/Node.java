@@ -15,5 +15,4 @@ public class Node {
 		this.hCost = hCost;
 		this.fCost = this.gCost + this.hCost;
 	}
-
 }

@@ -16,9 +16,8 @@ public class Chaser extends Mob {
 
 	private AnimatedSprite animSprite = down;
 
-	private double xa = 0;
-	private double ya = 0;
-	private double speed = 0.8;
+	private int xa = 0;
+	private int ya = 0;
 
 	public Chaser(int x, int y) {
 		this.x = x << 4;
@@ -29,18 +28,14 @@ public class Chaser extends Mob {
 	private void move() {
 		xa = 0;
 		ya = 0;
-
 		List<Player> players = level.getPlayers(this, 50);
-
 		if (players.size() > 0) {
 			Player player = players.get(0);
-
-			if (x < player.getX()) xa += speed;
-			if (x > player.getX()) xa -= speed;
-			if (y < player.getY()) ya += speed;
-			if (y > player.getY()) ya -= speed;
+			if (x < player.getX()) xa++;
+			if (x > player.getX()) xa--;
+			if (y < player.getY()) ya++;
+			if (y > player.getY()) ya--;
 		}
-
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
 			walking = true;
@@ -51,11 +46,9 @@ public class Chaser extends Mob {
 
 	public void update() {
 		move();
-
 		if (walking) animSprite.update();
 		else
 			animSprite.setFrame(0);
-
 		if (ya < 0) {
 			animSprite = up;
 			dir = Direction.UP;
@@ -74,8 +67,7 @@ public class Chaser extends Mob {
 
 	public void render(Screen screen) {
 		sprite = animSprite.getSprite();
-
-		screen.renderMob((int) (x - 16), (int) (y - 16), this);
+		screen.renderMob(x - 16, y - 16, this);
 	}
 
 }

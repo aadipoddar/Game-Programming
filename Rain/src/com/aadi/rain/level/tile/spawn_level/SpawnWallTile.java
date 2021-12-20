@@ -17,5 +17,4 @@ public class SpawnWallTile extends Tile {
 	public boolean solid() {
 		return true;
 	}
-
 }

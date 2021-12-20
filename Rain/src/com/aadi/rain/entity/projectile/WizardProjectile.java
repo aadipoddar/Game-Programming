@@ -8,7 +8,7 @@ public class WizardProjectile extends Projectile {
 
 	public static final int FIRE_RATE = 10; // Higher is slower!
 
-	public WizardProjectile(double x, double y, double dir) {
+	public WizardProjectile(int x, int y, double dir) {
 		super(x, y, dir);
 		range = 200;
 		speed = 4;

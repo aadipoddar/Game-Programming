@@ -7,13 +7,26 @@ import com.aadi.rain.util.Vector2i;
 
 public class UIComponent {
 
-	public int backgroundColor;
-	public Vector2i position, offset;
+	public Vector2i position, size;
+	protected Vector2i offset;
 	public Color color;
+	protected UIPanel panel;
+
+	public boolean active = true;
 
 	public UIComponent(Vector2i position) {
 		this.position = position;
 		offset = new Vector2i();
+	}
+
+	public UIComponent(Vector2i position, Vector2i size) {
+		this.position = position;
+		this.size = size;
+		offset = new Vector2i();
+	}
+
+	void init(UIPanel panel) {
+		this.panel = panel;
 	}
 
 	public UIComponent setColor(int color) {
@@ -25,6 +38,10 @@ public class UIComponent {
 	}
 
 	public void render(Graphics g) {
+	}
+
+	public Vector2i getAbsolutePosition() {
+		return new Vector2i(position).add(offset);
 	}
 
 	void setOffset(Vector2i offset) {

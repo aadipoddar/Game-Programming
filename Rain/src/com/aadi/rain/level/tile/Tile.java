@@ -10,7 +10,6 @@ import com.aadi.rain.level.tile.spawn_level.SpawnWaterTile;
 
 public class Tile {
 
-	public int x, y;
 	public Sprite sprite;
 
 	public static Tile grass = new GrassTile(Sprite.grass);
@@ -26,11 +25,12 @@ public class Tile {
 	public static Tile spawn_floor = new SpawnFloorTile(Sprite.spawn_floor);
 
 	public static final int col_spawn_grass = 0xff00ff00;
-	public static final int col_spawn_hedge = 0; // unused
-	public static final int col_spawn_water = 0; // unused
+	public static final int col_spawn_hedge = 0; //unused
+	public static final int col_spawn_water = 0; //unused
 	public static final int col_spawn_wall1 = 0xff808080;
 	public static final int col_spawn_wall2 = 0xff303030;
 	public static final int col_spawn_floor = 0xff724715;
+	public static final int col_spawn = 0xff38EEFF;
 
 	public Tile(Sprite sprite) {
 		this.sprite = sprite;

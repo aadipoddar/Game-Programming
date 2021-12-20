@@ -9,9 +9,12 @@ import com.aadi.rain.graphics.AnimatedSprite;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.graphics.Sprite;
 import com.aadi.rain.graphics.SpriteSheet;
+import com.aadi.rain.graphics.ui.UIActionListener;
+import com.aadi.rain.graphics.ui.UIButton;
 import com.aadi.rain.graphics.ui.UILabel;
 import com.aadi.rain.graphics.ui.UIManager;
 import com.aadi.rain.graphics.ui.UIPanel;
+import com.aadi.rain.graphics.ui.UIProgressBar;
 import com.aadi.rain.input.Keyboard;
 import com.aadi.rain.input.Mouse;
 import com.aadi.rain.util.Vector2i;
@@ -21,7 +24,6 @@ public class Player extends Mob {
 	private String name;
 	private Keyboard input;
 	private Sprite sprite;
-	private int anim = 0;
 	private boolean walking = false;
 
 	private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down, 32, 32, 3);
@@ -29,17 +31,19 @@ public class Player extends Mob {
 	private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left, 32, 32, 3);
 	private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right, 32, 32, 3);
 
-	private AnimatedSprite animSpite = down;
+	private AnimatedSprite animSprite = down;
 
 	private int fireRate = 0;
 
 	private UIManager ui;
+	private UIProgressBar uiHealthBar;
+	private UIButton button;
 
+	@Deprecated
 	public Player(String name, Keyboard input) {
 		this.name = name;
 		this.input = input;
 		sprite = Sprite.player_forward;
-
 	}
 
 	public Player(String name, int x, int y, Keyboard input) {
@@ -58,6 +62,26 @@ public class Player extends Mob {
 		nameLabel.setFont(new Font("Verdana", Font.PLAIN, 24));
 		nameLabel.dropShadow = true;
 		panel.addComponent(nameLabel);
+
+		uiHealthBar = new UIProgressBar(new Vector2i(10, 215), new Vector2i(80 * 3 - 20, 20));
+		uiHealthBar.setColor(0x6a6a6a);
+		uiHealthBar.setForegroundColor(0xee3030);
+		panel.addComponent(uiHealthBar);
+
+		UILabel hpLabel = new UILabel(new Vector2i(uiHealthBar.position).add(new Vector2i(2, 16)), "HP");
+		hpLabel.setColor(0xffffff);
+		hpLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
+		panel.addComponent(hpLabel);
+		// Player default attributes
+		health = 100;
+
+		button = new UIButton(new Vector2i(10, 260), new Vector2i(100, 30), new UIActionListener() {
+			public void perform() {
+				System.exit(0);
+			}
+		});
+		button.setText("Hello");
+		panel.addComponent(button);
 	}
 
 	public String getName() {
@@ -65,41 +89,35 @@ public class Player extends Mob {
 	}
 
 	public void update() {
-		if (walking) animSpite.update();
+		if (walking) animSprite.update();
 		else
-			animSpite.setFrame(0);
-
+			animSprite.setFrame(0);
 		if (fireRate > 0) fireRate--;
-
-		double xa = 0, ya = 0;
-
-		double speed = 1.0;
-
+		int xa = 0, ya = 0;
 		if (input.up) {
-			animSpite = up;
-			ya -= speed;
+			animSprite = up;
+			ya -= 2;
 		} else if (input.down) {
-			animSpite = down;
-			ya += speed;
+			animSprite = down;
+			ya += 2;
 		}
-
 		if (input.left) {
-			animSpite = left;
-			xa -= speed;
+			animSprite = left;
+			xa -= 2;
 		} else if (input.right) {
-			animSpite = right;
-			xa += speed;
+			animSprite = right;
+			xa += 2;
 		}
-
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
 			walking = true;
 		} else {
 			walking = false;
 		}
-
 		clear();
 		updateShooting();
+
+		uiHealthBar.setProgress(health / 100.0);
 	}
 
 	private void clear() {
@@ -114,7 +132,6 @@ public class Player extends Mob {
 			double dx = Mouse.getX() - Game.getWindowWidth() / 2;
 			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
 			double dir = Math.atan2(dy, dx);
-
 			shoot(x, y, dir);
 			fireRate = WizardProjectile.FIRE_RATE;
 		}
@@ -122,8 +139,8 @@ public class Player extends Mob {
 
 	public void render(Screen screen) {
 		int flip = 0;
-		sprite = animSpite.getSprite();
-		screen.renderMob((int) (x - 16), (int) (y - 16), sprite, flip);
+		sprite = animSprite.getSprite();
+		screen.renderMob(x - 16, y - 16, sprite, flip);
 	}
 
 }

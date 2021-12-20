@@ -9,6 +9,7 @@ public class UIManager {
 	private List<UIPanel> panels = new ArrayList<UIPanel>();
 
 	public UIManager() {
+
 	}
 
 	public void addPanel(UIPanel panel) {

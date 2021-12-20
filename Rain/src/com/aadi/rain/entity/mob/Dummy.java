@@ -21,7 +21,6 @@ public class Dummy extends Mob {
 	public Dummy(int x, int y) {
 		this.x = x << 4;
 		this.y = y << 4;
-
 		sprite = Sprite.dummy;
 	}
 
@@ -30,17 +29,14 @@ public class Dummy extends Mob {
 		if (time % (random.nextInt(50) + 30) == 0) {
 			xa = random.nextInt(3) - 1;
 			ya = random.nextInt(3) - 1;
-
-			if (random.nextInt(3) == 0) {
+			if (random.nextInt(4) == 0) {
 				xa = 0;
 				ya = 0;
 			}
 		}
-
 		if (walking) animSprite.update();
 		else
 			animSprite.setFrame(0);
-
 		if (ya < 0) {
 			animSprite = up;
 			dir = Direction.UP;
@@ -55,19 +51,16 @@ public class Dummy extends Mob {
 			animSprite = right;
 			dir = Direction.RIGHT;
 		}
-
 		if (xa != 0 || ya != 0) {
 			//move(xa, ya);
 			walking = true;
 		} else {
 			walking = false;
 		}
-
 	}
 
 	public void render(Screen screen) {
 		sprite = animSprite.getSprite();
 		screen.renderMob(x, y, sprite, 0);
 	}
-
 }

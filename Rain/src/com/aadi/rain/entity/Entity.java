@@ -14,15 +14,24 @@ public class Entity {
 	protected Level level;
 	protected final Random random = new Random();
 
+	public Entity() {
+	}
+
+	public Entity(int x, int y, Sprite sprite) {
+		this.x = x;
+		this.y = y;
+		this.sprite = sprite;
+	}
+
 	public void update() {
 	}
 
 	public void render(Screen screen) {
-		if (sprite != null) screen.renderSprite((int) x, (int) y, sprite, true);
+		if (sprite != null) screen.renderSprite(x, y, sprite, true);
 	}
 
 	public void remove() {
-		// Remove from level
+		//Remove from level
 		removed = true;
 	}
 

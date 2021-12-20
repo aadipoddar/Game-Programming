@@ -7,7 +7,6 @@ import com.aadi.rain.graphics.AnimatedSprite;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.graphics.Sprite;
 import com.aadi.rain.graphics.SpriteSheet;
-import com.aadi.rain.util.Debug;
 import com.aadi.rain.util.Vector2i;
 
 public class Shooter extends Mob {
@@ -18,7 +17,6 @@ public class Shooter extends Mob {
 	private AnimatedSprite right = new AnimatedSprite(SpriteSheet.dummy_right, 32, 32, 3);
 
 	private AnimatedSprite animSprite = down;
-
 	private int time = 0;
 	private int xa = 0, ya = 0;
 
@@ -35,17 +33,14 @@ public class Shooter extends Mob {
 		if (time % (random.nextInt(50) + 30) == 0) {
 			xa = random.nextInt(3) - 1;
 			ya = random.nextInt(3) - 1;
-
-			if (random.nextInt(3) == 0) {
+			if (random.nextInt(4) == 0) {
 				xa = 0;
 				ya = 0;
 			}
 		}
-
 		if (walking) animSprite.update();
 		else
 			animSprite.setFrame(0);
-
 		if (ya < 0) {
 			animSprite = up;
 			dir = Direction.UP;
@@ -60,7 +55,6 @@ public class Shooter extends Mob {
 			animSprite = right;
 			dir = Direction.RIGHT;
 		}
-
 		if (xa != 0 || ya != 0) {
 			//move(xa, ya);
 			walking = true;
@@ -69,23 +63,21 @@ public class Shooter extends Mob {
 		}
 
 		shootRandom();
+
 	}
 
 	private void shootRandom() {
 		List<Entity> entities = level.getEntities(this, 500);
 		entities.add(level.getClientPlayer());
-
 		if (time % (30 + random.nextInt(91)) == 0) {
-			int index = random.nextInt(entities.size() - 1);
+			int index = random.nextInt(entities.size());
 			rand = entities.get(index);
 		}
 
 		if (rand != null) {
 			double dx = rand.getX() - x;
 			double dy = rand.getY() - y;
-
 			double dir = Math.atan2(dy, dx);
-
 			shoot(x, y, dir);
 		}
 	}
@@ -96,11 +88,9 @@ public class Shooter extends Mob {
 
 		double min = 0;
 		Entity closest = null;
-
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			double distance = Vector2i.getDistance(new Vector2i(x, y), new Vector2i(e.getX(), e.getY()));
-
 			if (i == 0 || distance < min) {
 				min = distance;
 				closest = e;
@@ -110,9 +100,7 @@ public class Shooter extends Mob {
 		if (closest != null) {
 			double dx = closest.getX() - x;
 			double dy = closest.getY() - y;
-
 			double dir = Math.atan2(dy, dx);
-
 			shoot(x, y, dir);
 		}
 	}
