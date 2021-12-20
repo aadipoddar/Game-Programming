@@ -22,6 +22,7 @@ import com.aadi.rain.input.Keyboard;
 import com.aadi.rain.input.Mouse;
 import com.aadi.rain.level.Level;
 import com.aadi.rain.level.TileCoordinate;
+import com.aadi.rain.net.player.NetPlayer;
 
 public class Game extends Canvas implements Runnable, EventListener {
 	private static final long serialVersionUID = 1L;
@@ -60,6 +61,7 @@ public class Game extends Canvas implements Runnable, EventListener {
 		player = new Player("Cherno", playerSpawn.x(), playerSpawn.y(), key);
 		level.add(player);
 
+		level.addPlayer(new NetPlayer());
 		addKeyListener(key);
 
 		Mouse mouse = new Mouse(this);
