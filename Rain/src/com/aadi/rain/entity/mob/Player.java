@@ -77,7 +77,7 @@ public class Player extends Mob {
 
 		button = new UIButton(new Vector2i(10, 260), new Vector2i(100, 30), new UIActionListener() {
 			public void perform() {
-				System.exit(0);
+				System.out.println("Action Performed!");
 			}
 		});
 		button.setText("Hello");
