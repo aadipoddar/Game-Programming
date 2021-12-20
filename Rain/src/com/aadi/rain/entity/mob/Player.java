@@ -7,8 +7,12 @@ import com.aadi.rain.graphics.AnimatedSprite;
 import com.aadi.rain.graphics.Screen;
 import com.aadi.rain.graphics.Sprite;
 import com.aadi.rain.graphics.SpriteSheet;
+import com.aadi.rain.graphics.ui.UILabel;
+import com.aadi.rain.graphics.ui.UIManager;
+import com.aadi.rain.graphics.ui.UIPanel;
 import com.aadi.rain.input.Keyboard;
 import com.aadi.rain.input.Mouse;
+import com.aadi.rain.util.Vector2i;
 
 public class Player extends Mob {
 
@@ -26,9 +30,12 @@ public class Player extends Mob {
 
 	private int fireRate = 0;
 
+	private UIManager ui;
+
 	public Player(Keyboard input) {
 		this.input = input;
 		sprite = Sprite.player_forward;
+
 	}
 
 	public Player(int x, int y, Keyboard input) {
@@ -37,6 +44,11 @@ public class Player extends Mob {
 		this.input = input;
 		sprite = Sprite.player_forward;
 		fireRate = WizardProjectile.FIRE_RATE;
+
+		ui = Game.getUIManager();
+		UIPanel panel = new UIPanel(new Vector2i(300 - 80, 0));
+		ui.addPanel(panel);
+		panel.addComponent(new UILabel(new Vector2i(-10, 2), "Hello"));
 	}
 
 	public void update() {

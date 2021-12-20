@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import com.aadi.rain.entity.mob.Player;
 import com.aadi.rain.graphics.Font;
 import com.aadi.rain.graphics.Screen;
+import com.aadi.rain.graphics.ui.UIManager;
 import com.aadi.rain.input.Keyboard;
 import com.aadi.rain.input.Mouse;
 import com.aadi.rain.level.Level;
@@ -21,7 +22,7 @@ public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
 	private static int width = 300;
-	private static int height = width / 16 * 9;
+	private static int height = 168;
 	private static int scale = 3;
 	private static String title = "Rain";
 
@@ -31,6 +32,8 @@ public class Game extends Canvas implements Runnable {
 	private Level level;
 	private Player player;
 	private boolean running = false;
+
+	private static UIManager uiManager;
 
 	private Screen screen;
 	private Font font;
@@ -43,6 +46,7 @@ public class Game extends Canvas implements Runnable {
 		setPreferredSize(size);
 
 		screen = new Screen(width, height);
+		uiManager = new UIManager();
 		frame = new JFrame();
 		key = new Keyboard();
 		level = Level.spawn;
@@ -64,6 +68,10 @@ public class Game extends Canvas implements Runnable {
 
 	public static int getWindowHeight() {
 		return height * scale;
+	}
+
+	public static UIManager getUIManager() {
+		return uiManager;
 	}
 
 	public synchronized void start() { // Starts the thread which are series of events that are executed in the background
@@ -124,6 +132,7 @@ public class Game extends Canvas implements Runnable {
 	public void update() {
 		key.update();
 		level.update();
+		uiManager.update();
 	}
 
 	public void render() {
@@ -140,10 +149,7 @@ public class Game extends Canvas implements Runnable {
 		double yScroll = player.getY() - screen.height / 2;
 
 		level.render((int) xScroll, (int) yScroll, screen);
-
-		//font.render(30, 50, -3, "Hey Guys my the name \n is the Cherno", screen);
-
-		//screen.renderSheet(40, 40, SpriteSheet.player_down, false);
+		uiManager.render(screen);
 
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
