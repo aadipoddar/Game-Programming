@@ -141,7 +141,7 @@ public class Game extends Canvas implements Runnable {
 
 		level.render((int) xScroll, (int) yScroll, screen);
 
-		font.render(30, 50, -3, "Hey Guys my the name \n is the Cherno", screen);
+		//font.render(30, 50, -3, "Hey Guys my the name \n is the Cherno", screen);
 
 		//screen.renderSheet(40, 40, SpriteSheet.player_down, false);
 
