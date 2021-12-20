@@ -22,6 +22,7 @@ import com.aadi.rain.input.Keyboard;
 import com.aadi.rain.input.Mouse;
 import com.aadi.rain.level.Level;
 import com.aadi.rain.level.TileCoordinate;
+import com.aadi.rain.net.Client;
 import com.aadi.rain.net.player.NetPlayer;
 import com.aadi.raincloud.serialization.RCDatabase;
 import com.aadi.raincloud.serialization.RCField;
@@ -57,6 +58,15 @@ public class Game extends Canvas implements Runnable, EventListener {
 		uiManager = new UIManager();
 		frame = new JFrame();
 		key = new Keyboard();
+
+		Client client = new Client("localhost", 8192);
+		if (!client.connect()) {
+			// TODO: We didn't connect
+		}
+
+		RCDatabase db = RCDatabase.DeserializeFromFile("res/data/screen.bin");
+		//client.send(db);
+
 		level = Level.spawn;
 		addLayer(level);
 		TileCoordinate playerSpawn = new TileCoordinate(19, 42);
