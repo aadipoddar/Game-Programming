@@ -13,24 +13,29 @@ public class WizardProjectile extends Projectile {
 		range = 200;
 		speed = 4;
 		damage = 20;
-		sprite = Sprite.projectile_arrow;
-
+		sprite = Sprite.rotate(Sprite.projectile_arrow, angle);
 		nx = speed * Math.cos(angle);
 		ny = speed * Math.sin(angle);
 	}
 
+	private int time = 0;
+
 	public void update() {
-		if (level.tileCollision((int) (x + nx), (int) (y + nx), 7, 5, 4)) {
+		if (level.tileCollision((int) (x + nx), (int) (y + ny), 7, 5, 4)) {
 			level.add(new ParticleSpawner((int) x, (int) y, 44, 50, level));
 			remove();
 		}
+		time++;
+		if (time % 2 == 0) {
+			sprite = Sprite.rotate(sprite, Math.PI / 20.0);
+		}
+
 		move();
 	}
 
 	protected void move() {
 		x += nx;
 		y += ny;
-
 		if (distance() > range) remove();
 	}
 
@@ -41,7 +46,7 @@ public class WizardProjectile extends Projectile {
 	}
 
 	public void render(Screen screen) {
-		screen.renderProjectile((int) x - 12, (int) y - 2, this, angle);
+		screen.renderProjectile((int) x - 12, (int) y - 2, this);
 	}
 
 }

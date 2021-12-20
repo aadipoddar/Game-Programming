@@ -1,6 +1,5 @@
 package com.aadi.rain.graphics;
 
-// This class loads our individual sprite
 public class Sprite {
 
 	public final int SIZE;
@@ -14,7 +13,7 @@ public class Sprite {
 	public static Sprite rock = new Sprite(16, 2, 0, SpriteSheet.tiles);
 	public static Sprite voidSprite = new Sprite(16, 0x1B87E0);
 
-	//Spawn Level Sprites here:
+	// Spawn Level Sprites here:
 	public static Sprite spawn_grass = new Sprite(16, 0, 0, SpriteSheet.spawn_level);
 	public static Sprite spawn_hedge = new Sprite(16, 1, 0, SpriteSheet.spawn_level);
 	public static Sprite spawn_water = new Sprite(16, 2, 0, SpriteSheet.spawn_level);
@@ -22,7 +21,7 @@ public class Sprite {
 	public static Sprite spawn_wall2 = new Sprite(16, 0, 2, SpriteSheet.spawn_level);
 	public static Sprite spawn_floor = new Sprite(16, 1, 1, SpriteSheet.spawn_level);
 
-	//Player Sprites here:
+	// Player Sprites here:
 	public static Sprite player_forward = new Sprite(32, 0, 5, SpriteSheet.tiles);
 	public static Sprite player_back = new Sprite(32, 2, 5, SpriteSheet.tiles);
 	public static Sprite player_side = new Sprite(32, 1, 5, SpriteSheet.tiles);
@@ -38,7 +37,7 @@ public class Sprite {
 
 	public static Sprite dummy = new Sprite(32, 0, 0, SpriteSheet.dummy_down);
 
-	//Projectile Sprites here:
+	// Projectile Sprites here:
 	public static Sprite projectile_wizard = new Sprite(16, 0, 0, SpriteSheet.projectile_wizard);
 	public static Sprite projectile_arrow = new Sprite(16, 1, 0, SpriteSheet.projectile_wizard);
 
@@ -88,6 +87,54 @@ public class Sprite {
 		for (int i = 0; i < pixels.length; i++) {
 			this.pixels[i] = pixels[i];
 		}
+	}
+
+	public static Sprite rotate(Sprite sprite, double angle) {
+		return new Sprite(rotate(sprite.pixels, sprite.width, sprite.height, angle), sprite.width, sprite.height);
+	}
+
+	private static int[] rotate(int[] pixels, int width, int height, double angle) {
+		int[] result = new int[width * height];
+
+		double nx_x = rot_x(-angle, 1.0, 0.0);
+		double nx_y = rot_y(-angle, 1.0, 0.0);
+		double ny_x = rot_x(-angle, 0.0, 1.0);
+		double ny_y = rot_y(-angle, 0.0, 1.0);
+
+		double x0 = rot_x(-angle, -width / 2.0, -height / 2.0) + width / 2.0;
+		double y0 = rot_y(-angle, -width / 2.0, -height / 2.0) + height / 2.0;
+
+		for (int y = 0; y < height; y++) {
+			double x1 = x0;
+			double y1 = y0;
+			for (int x = 0; x < width; x++) {
+				int xx = (int) x1;
+				int yy = (int) y1;
+				int col = 0;
+				if (xx < 0 || xx >= width || yy < 0 || yy >= height) col = 0xffff00ff;
+				else
+					col = pixels[xx + yy * width];
+				result[x + y * width] = col;
+				x1 += nx_x;
+				y1 += nx_y;
+			}
+			x0 += ny_x;
+			y0 += ny_y;
+		}
+
+		return result;
+	}
+
+	private static double rot_x(double angle, double x, double y) {
+		double cos = Math.cos(angle - Math.PI / 2);
+		double sin = Math.sin(angle - Math.PI / 2);
+		return x * cos + y * -sin;
+	}
+
+	private static double rot_y(double angle, double x, double y) {
+		double cos = Math.cos(angle - Math.PI / 2);
+		double sin = Math.sin(angle - Math.PI / 2);
+		return x * sin + y * cos;
 	}
 
 	public static Sprite[] split(SpriteSheet sheet) {
