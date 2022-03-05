@@ -1,4 +1,3 @@
-Game Programming
-================
-
-Welcome to the Game Programming repository! This is the source code from a YouTube series you can find here: https://www.youtube.com/playlist?list=PLlrATfBNZ98eOOCk2fOFg7Qg5yoQfFAdf
+# Game Programming
+## A simple Multiplayer Game Made in Java.
+### It is a shooting game
